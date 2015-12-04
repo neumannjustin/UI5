@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="So far we have only worked with local JSON data, but now we will access a real OData service. You can find many test services on the OData home page that we can use to connect our app to remote data. You will be surprised how few we have to change in order to make this work!"/>
+<meta name="description" content="So far we have only worked with local JSON data, but now we will access a real OData service. You can find many test services on the OData home page that we can use to connect our app to remote data. You will be surprised how few we have to change in order to make this work!"/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=406857636587293"/>
+<title>Step 26: Remote OData Service</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loio44062441f3bd4c67a4f665ae362d1109">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Step 26: Remote OData Service</h1>
+<div class="body conbody"><p class="shortdesc">So far we have only worked with local JSON data, but now we will access a real OData
+		service. You can find many test services on the OData home page that we can use to connect
+		our app to remote data. You will be surprised how few we have to change in order to make
+		this work!</p>
+<div class="section"><div class="section_title">Preview</div><div type="Preview">
+			
+			<div class="fig fignone" id="loio44062441f3bd4c67a4f665ae362d1109__fig_r1j_pst_mr"><div class="figcontainer"><img class="image" id="loio44062441f3bd4c67a4f665ae362d1109__image_trp_5j2_yr" src="loio99a649180be34423b9c6ba8379b26098_HiRes.png"/><div class="figcap">Figure 1:
+					Products from the OData invoices test service are now shown within our
+					app</div></div></div>
+
+		</div></div>
+<div class="section">
+			<div class="section_title">Coding</div>
+			<p class="p">You can view and download all files in the <span class="ph uicontrol">Explored</span> app in the Demo Kit
+					<span class="ph">at <a class="xref" target="_blank" href="../../explored.html#/sample/sap.m.tutorial.walkthrough.26/preview">Walkthrough - Step 26</a></span>.</p>
+
+			<div class="section_title">webapp/manifest.json</div>
+			<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!js</samp>{
+  …
+  "sap.ui5": {
+	"_version": "1.1.0",
+	"rootView": "sap.ui.demo.wt.view.App",
+
+	"dependencies": {
+	  "minUI5Version": "1.30",
+	  "libs": {
+		"sap.m": {}
+	  }
+	},
+	"config": {
+	  "invoiceLocal": "/Invoices.json"<span class="ph emphasis emphasis">,
+	  "invoiceRemote": "/destinations/northwind/V3/Northwind/Northwind.svc/"</span>
+	},
+	"models": {
+	  "i18n": {
+		"type": "sap.ui.model.resource.ResourceModel",
+		"settings": {
+		  "bundleName": "sap.ui.demo.wt.i18n.i18n"
+		}
+	  }
+	}
+  }
+}</pre></div>
+
+			<p class="p">In the descriptor, we add a second custom configuration parameter that points to our remote
+				data source. Due to cross-site scripting restrictions in JavaScript, we cannot
+				connect to a remote URL from our local app. Instead we need to make sure our
+				requests are sent via some proxy.</p>
+
+			<p class="p">A proxy is simply a local script that connects to the remote server and returns the response
+				to our app. In a productive scenario this would of course be a direct connection. We
+				use the proxy to access the northwind test service from
+					<span class="ph filepath">OData.org</span> and fetch our invoices now from there instead of
+				our local JSON data.</p>
+
+			<p class="p"> First, we need to configure a destination for a remote service  in SAP Web IDE. When
+				using such a destination, requests to our service will be proxied for us
+				automatically. The URL shown in the sample code assumes there is a corresponding
+				destination for the service configured.  </p>
+
+			<div class="note note"><span class="notetitle">Note</span> 
+				<p class="p"> SAP Web IDE users can configure an HTTP destination instead of a proxy to access
+					a remote service. For this additional configuration steps are required. See
+					section <a class="xref" href="https://help.hana.ondemand.com/webide/frameset.htm?07cbc55eba264c4c9bcf81c501601fbf.html">Creating a Cloud Connectivity Configuration File</a> in
+					the SAP Web IDE documentation at<a class="xref" href="https://help.hana.ondemand.com/webide/frameset.htm">https://help.hana.ondemand.com/webide/frameset.htm</a>
+					for further details.</p>
+
+			</div>
+
+			<p class="p">For all other development environments, you will need to use a local proxy.</p>
+
+		</div>
+<div class="section"><div class="section_title">webapp/Component.js</div><div type="webapp/Component.js">
+			
+			<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!js</samp>sap.ui.define([
+	"sap/ui/core/UIComponent",
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/demo/wt/controller/HelloDialog"<span class="ph emphasis emphasis">,
+	"sap/ui/model/odata/v2/ODataModel"</span>
+	
+], function (UIComponent, JSONModel, HelloDialog<span class="ph emphasis emphasis">, ODataModel</span>) {
+	"use strict";
+	return UIComponent.extend("sap.ui.demo.wt.Component", {
+		metadata : {
+			manifest: "json"
+		},
+		init : function () {
+			…
+
+			<span class="ph emphasis emphasis">// set invoice model - remote
+			var oConfig = this.getMetadata().getConfig();
+			var oInvoiceModel = new ODataModel(oConfig.invoiceRemote);</span>
+			this.setModel(oInvoiceModel, "invoice");
+			// set dialog
+			this.helloDialog = new HelloDialog();
+		}
+	});
+});</pre></div>
+
+			<p class="p">You might wonder if that really was it. Yes, we simply have to load the <span class="ph"><span class="ph pname">OpenUI5</span></span>
+				<samp class="ph codeph">ODataModel</samp> class and exchange the local config parameter with the
+				remote URL of the real northwind service. Since the test service has the same
+				interface (except for the status, this one is not available in the real service) we
+				can see all kinds of invoices in our app now.</p>
+
+		</div></div>
+</div>
+<div class="related-links"> 
+
+<div class="familylinks">
+<div class="parentlink"><br/>
+<strong>Parent topic: </strong><a class="link" href="3da5f4be63264db99f2e5b04c5e853db.html" title="In this tutorial we will introduce you to all major development paradigms of OpenUI5.">Walkthrough</a><br/>
+</div>
+<div class="previouslink"><br/>
+<strong>Previous: </strong><a class="link" href="c4b2a32bb72f483faa173e890e48d812.html" title="To make our list of invoices even more user-friendly, we sort it alphabetically instead of just showing the order from the data model. Additionally, we introduce groups and add the company that ships the products so that the data is easier to consume.">Step 25: Sorting and Grouping</a><br/>
+</div>
+<div class="nextlink"><br/>
+<strong>Next: </strong><a class="link" href="bae9d90d2e9c4206889368f04edab508.html" title="We just ran our app against a real service, but for developing and testing our app we do not want to rely on the availability of the “real” service or put additional load on the system where the data service is located. This system is the so-called back-end system that we will now simulate with a OpenUI5 feature called mock server. It serves local files, but it simulates a back-end system more realistically than just loading the local data. We will also change the model instantiation part so that the model is configured with the descriptor and instantiated automatically by OpenUI5. This way, we do not need to take care of the model instantiation in the code.">Step 27: Mock Server and Automatic Model Instantiation</a><br/>
+</div>
+</div>
+<div class="relinfo"><div class="relinfotitle ">Related Information</div>
+<div><a class="extlink" href="http://help.sap.com/disclaimer?site=http://www.odata.org/" alt="http://www.odata.org/" title="http://www.odata.org/">OData Home Page<img src="images/3rd_link.png" class="link-external" alt="Information published on non-SAP site" title="Information published on non-SAP site" border="0"/></a></div>
+<div><a class="link" href="../../docs/api/symbols/sap.ui.model.odata.v2.ODataModel.html">API Reference: <samp class="ph codeph">sap.ui.model.odata.v2.ODataModel</samp></a></div>
+</div>
+</div></div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Step 26: Remote OData Service";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

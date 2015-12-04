@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="A minimalistic index.html file is needed to test the project configuration. This file contains the OpenUI5 bootstrap and a sap.m.Text control that displays the text &#34;OpenUI5 is loaded successfully!&#34;."/>
+<meta name="description" content="A minimalistic index.html file is needed to test the project configuration. This file contains the OpenUI5 bootstrap and a sap.m.Text control that displays the text &#34;OpenUI5 is loaded successfully!&#34;."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=8302581669269286"/>
+<title>Step 3: Create an index.html File</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loiof7cbafc9a76140ec8fc55b51a63cf467">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Step 3: Create an index.html File</h1>
+<div class="body conbody"><p class="shortdesc">A minimalistic <span class="ph filepath">index.html</span> file is needed to test the project
+		configuration. This file contains the <span class="ph"><span class="ph pname">OpenUI5</span></span> bootstrap and a
+			<samp class="ph codeph">sap.m.Text</samp> control that displays the text "<span class="ph emphasis emphasis"><span class="ph"><span class="ph pname">OpenUI5</span></span> is loaded
+			successfully!</span>".</p>
+<div class="p">
+			<ol class="ol" id="loiof7cbafc9a76140ec8fc55b51a63cf467__ol_dpd_nq3_zs"><li class="li">Click the <span class="ph uicontrol">New Folder</span> icon in the header toolbar and enter
+						<kbd class="ph userinput">src</kbd> as the folder name.</li>
+<li class="li">Select the newly created folder and create a new <span class="ph filepath">index.html</span>
+					file inside it by clicking the <span class="ph uicontrol">New File</span> icon.</li>
+<li class="li">Paste the following code in the newly created <span class="ph filepath">index.html</span>
+					file and click the <span class="ph uicontrol">Save</span> icon in the upper-left corner:<div class="p">
+						<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+	&lt;head&gt;
+		&lt;meta http-equiv="X-UA-Compatible" content="IE=edge" /&gt;
+		&lt;meta charset="UTF-8"&gt;
+		&lt;title&gt;SAPUI5 Walkthrough&lt;/title&gt;
+		&lt;script
+			id="sap-ui-bootstrap"
+			src="/resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_bluecrystal"
+			data-sap-ui-modules="sap.m.library"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-preload="async" &gt;
+		&lt;/script&gt;
+		&lt;script&gt;
+			sap.ui.getCore().attachInit(function () {
+				new sap.m.Text({
+					text : "<span class="ph"><span class="ph pname">OpenUI5</span></span> is loaded successfully!"
+				}).placeAt("content");
+			});
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body class="sapUiBody" id="content"&gt;
+	&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+
+					</div>
+</li>
+</ol>
+
+		</div>
+</div>
+<div class="related-links"> 
+
+<div class="familylinks">
+<div class="parentlink"><br/>
+<strong>Parent topic: </strong><a class="link" href="13ced9493472408999143bc99bbb73b9.html" title="SAP Web IDE is a Web-based development environment that is optimized for developing OpenUI5 complex apps using the latest innovations, developing and extending SAP Fiori apps, developing mobile hybrid apps, and extending SAP Web IDE with plug-ins and templates.">App Development Using SAP Web IDE</a><br/>
+</div>
+<div class="previouslink"><br/>
+<strong>Previous: </strong><a class="link" href="28fa7538c67e4280a0b7708de2951278.html" title="The neo-app.json file contains all project settings for SAP Web IDE and is created in the root folder of your project. It is a JSON format file consisting of multiple configuration keys. The most important setting for you to configure is the path where the OpenUI5 runtime is located when starting the app.">Step 2: Create a neo-app.json Project Configuration File</a><br/>
+</div>
+<div class="nextlink"><br/>
+<strong>Next: </strong><a class="link" href="745424aed0154817a5c7317b0270b833.html" title="SAP Web IDE comes with integrated testing features that let you run the app on a central server without having to set up any additional infrastructure. You can run the app by selecting the src/index.html file and clicking the run button in the header toolbar.">Step 4: Run the App</a><br/>
+</div>
+</div>
+</div>
+</div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Step 3: Create an index.html File";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

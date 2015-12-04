@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="A model in the Model View Controller concept holds the data and provides methods to retrieve the data from the database and to set and update data."/>
+<meta name="description" content="A model in the Model View Controller concept holds the data and provides methods to retrieve the data from the database and to set and update data."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=938817597490082"/>
+<title>Models</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loioe1b625940c104b558e52f47afe5ddb4f">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Models</h1>
+<div class="body conbody"><p class="shortdesc">A model in the Model View Controller concept holds the data and provides methods to
+		retrieve the data from the database and to set and update data.</p>
+<p class="p"><span class="ph"><span class="ph pname">OpenUI5</span></span> provides the following predefined models: </p>
+<ul class="ul" id="loioe1b625940c104b558e52f47afe5ddb4f__ul_isr_ltw_qk"><li class="li">The <dfn class="term">JSON model</dfn> can be used to bind controls to JavaScript object data, which is
+				usually serialized in the JSON format. The JSON model is a client-side model and,
+				therefore, intended for small datasets, which are completely available on the
+				client. The JSON model supports two-way (default), one-way and one-time binding
+				modes.</li>
+<li class="li">The <dfn class="term">XML model</dfn> is a client-side model intended for small datasets, which are
+				completely available on the client. The XMLModel does not contain mechanisms for
+				server-based paging or loading of deltas. The XML model supports two-way (default),
+				one-way and one-time binding modes.</li>
+<li class="li">The <dfn class="term">Resource model </dfn>is designed to handle data in resource bundles, mainly to
+				provide texts in different languages. The Resource model only supports one-time
+				binding mode because it deals with static texts only.</li>
+<li class="li">The <dfn class="term">OData model</dfn> enables binding of controls to data from OData services. The
+				OData model is a server-side model: the dataset is only available on the server and
+				the client only knows the currently visible rows and fields. This also means that
+				sorting and filtering on the client is <span class="ph emphasis emphasis">not</span> possible. For this,
+				the client has to send a request to the server. The OData model currently supports
+				OData version 2.0. The OData model supports two-way (default), one-way and one-time
+				binding modes. However, two-way binding is currently only supportes for properties,
+				and not for aggregations.</li>
+</ul>
+<p class="p">The JSON model, XML model, and the resource model are client-side models, meaning that
+			the model data is loaded completely and is available on the client. Operations such as
+			sorting and filtering are executed on the client without further server requests. The
+			OData model is a server-side model and only loads the data requested by the user
+			interface from the server. Any changes in data binding or list operations require a new
+			request to the server. </p>
+<p class="p">You can not only define one model for your applications, but define different areas in
+			your application with different models and assign single controls to a model. You can
+			also define nested models, for example, a JSON model defined for the application and an
+			OData model for a table control contained in the application. </p>
+<p class="p">A web application should support several data sources, such as JSON, XML, Atom, or OData.
+			However, the way in which data binding is defined and implemented within the UI controls
+			should be independent of the respective data source. It is also possible to create a
+			custom model implementation for data sources that are not yet covered by the framework
+			or are domain-specific. </p>
+<div class="section"><div class="section_title">API References</div><div type="API References">
+			
+			<ul class="ul" id="loioe1b625940c104b558e52f47afe5ddb4f__ul_j4j_ddy_tk"><li class="li"><a class="xref" href="../../docs/api/symbols/sap.ui.model.html">sap.ui.model</a></li>
+<li class="li"><a class="xref" href="../../docs/api/symbols/sap.ui.model.json.JSONModel.html">sap.ui.model.json.JSONModel</a></li>
+<li class="li"><a class="xref" href="../../docs/api/symbols/sap.ui.model.odata.ODataModel.html">sap.ui.model.odata.ODataModel</a></li>
+<li class="li"><a class="xref" href="../../docs/api/symbols/sap.ui.model.resource.ResourceModel.html">sap.ui.model.resource.ResourceModel</a></li>
+<li class="li"><a class="xref" href="../../docs/api/symbols/sap.ui.model.xml.XMLModel.html">sap.ui.model.xml.XMLModel</a></li>
+</ul>
+
+		</div></div>
+</div>
+<div class="related-links"> <br/>
+<div class="childtopics"><strong>In this section:</strong></div><ul class="ullinks">
+<div><strong><a class="link" href="91f0e60a6f4d1014b6dd926db0e91070.html">Instantiating Models</a></strong><br/>
+<div class="linkdesc">The first step when using data binding is to instantiate a model and to provide the data 		for that model.</div></div>
+<div><strong><a class="link" href="91f0d1c56f4d1014b6dd926db0e91070.html">Assigning the Model to the UI</a></strong><br/>
+<div class="linkdesc">The model instance must be assigned to the UI, that is, the framework must know about 		the model instance, before you can bind controls to this model instance.</div></div>
+<div><strong><a class="link" href="91f0ed206f4d1014b6dd926db0e91070.html">Defining a Binding Path</a></strong><br/>
+<div class="linkdesc">Binding paths address the different properties and lists in a model and define how a 		node in the hierarchical data tree can be found.</div></div>
+<div><strong><a class="link" href="91f0d8ab6f4d1014b6dd926db0e91070.html">Binding Controls to the Model</a></strong><br/>
+<div class="linkdesc">To retrieve data from the model for visualization in the UI, the controls have to be 		bound to the model by means of a binding path. The control itself, all properties of 		controls, and all multiple aggregations can be bound to a model.</div></div>
+<div><strong><a class="link" href="1a08f70951a744b1a7962b09665cc92f.html">Setting the Default Binding Mode</a></strong><br/>
+<div class="linkdesc">The default binding mode applies when a model instance is created. You can overwrite the 		default binding mode after model creation.</div></div>
+</ul>
+
+<div class="relinfo"><div class="relinfotitle ">Related Information</div>
+<div><a class="link" href="91f0df546f4d1014b6dd926db0e91070.html">Binding Modes</a></div>
+<div class="linkdesc">The binding mode defines how the data sources are bound. The different model 		implementations require specific binding modes. The resource model, for example, only 		supports one-time binding, that is, a binding from the model to the view.</div></div>
+</div></div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Models";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

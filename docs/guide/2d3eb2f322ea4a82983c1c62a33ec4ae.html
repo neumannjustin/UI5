@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="OpenUI5 can either be loaded relatively from a Web server or externally from a Content Delivery Network (CDN)."/>
+<meta name="description" content="OpenUI5 can either be loaded relatively from a Web server or externally from a Content Delivery Network (CDN)."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=4555051988464215"/>
+<title>Variant for Bootstrapping from Content Delivery Network</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loio2d3eb2f322ea4a82983c1c62a33ec4ae">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Variant for Bootstrapping from Content Delivery Network</h1>
+<div class="body conbody"><p class="shortdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> can either be loaded
+        relatively from a Web server or externally from a Content Delivery Network
+        (CDN).</p>
+<p class="p">The CDN version of our libraries can be found at <a class="xref" href="https://openui5.hana.ondemand.com/resources/sap-ui-core.js">https://openui5.hana.ondemand.com/resources/sap-ui-core.js</a>
+                (<span class="ph pname">OpenUI5</span>) and .</p>
+<div class="p"> If you want to use the CDN version, you can use the
+            following bootstrap
+            script:<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!html</samp>&lt;script id="sap-ui-bootstrap"
+    type="text/javascript"
+    src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_bluecrystal"
+    data-sap-ui-libs="sap.m"&gt;&lt;/script&gt;
+</pre></div>
+</div>
+<div class="note caution"><span class="cautiontitle">Caution</span> 
+            <p class="p">The CDN version is constantly being upgraded to the latest stable version. Therefore,
+                this might have an impact on the stability of your application.</p>
+
+        </div>
+<div class="p">You can refer to a <span class="ph emphasis emphasis">specific
+                version</span> instead by using a versioned URL as in the example
+            below:<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!html</samp>&lt;script id="sap-ui-bootstrap"
+    type="text/javascript"
+    src="https://openui5.hana.ondemand.com/<span class="ph emphasis emphasis">1.28.8</span>/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_bluecrystal"
+    data-sap-ui-libs="sap.m"&gt;&lt;/script&gt;
+
+</pre></div>
+</div>
+<p class="p">The first segment of the URL after the host name is used to specify a concrete
+            version.</p>
+<div class="p">Check the available versions with respective maintenance status at <a class="xref" href="https://openui5.hana.ondemand.com/versionoverview.html">https://openui5.hana.ondemand.com/versionoverview.html</a>.<div class="note note"><span class="notetitle">Note</span> 
+                <p class="p">Only use the <span class="ph uicontrol">Stable</span> version for productive apps.
+                    Nevertheless, if you also want to test the <span class="ph uicontrol">Preview</span>
+                    version, you are very welcome to send us your feedback!</p>
+
+            </div>
+</div>
+</div>
+<div class="related-links"> 
+<div class="relinfo"><div class="relinfotitle ">Related Information</div>
+<div><a class="link" href="91f021426f4d1014b6dd926db0e91070.html">Versioning of OpenUI5</a></div>
+<div class="linkdesc">As of <span class="ph"><span class="ph pname">OpenUI5</span></span> 1.6 there is a 		close coupling of <span class="ph"><span class="ph pname">OpenUI5</span></span> 		core/runtime and <span class="ph"><span class="ph pname">OpenUI5</span></span> tools: 		It is required that within a running system both have the same version, that is, have the 		same major and minor version.</div></div>
+</div></div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Variant for Bootstrapping from Content Delivery Network";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

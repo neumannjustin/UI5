@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="For attributes, you do not need templating instructions but use OpenUI5 binding expressions instead as in the below code snippet. Each XML attribute is checked to see if its value represents a valid OpenUI5 binding which refers to currently available model (= variable) names only. If so, the binding is evaluated and the result is written back into that XML attribute."/>
+<meta name="description" content="For attributes, you do not need templating instructions but use OpenUI5 binding expressions instead as in the below code snippet. Each XML attribute is checked to see if its value represents a valid OpenUI5 binding which refers to currently available model (= variable) names only. If so, the binding is evaluated and the result is written back into that XML attribute."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=1688779533874919"/>
+<title>Replacement of Bindings</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loio604b1eb50e47483ebaf97a27fb065e95">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Replacement of Bindings</h1>
+<div class="body conbody"><p class="shortdesc">For attributes, you do not need templating instructions but use <span class="ph"><span class="ph pname">OpenUI5</span></span> binding expressions
+		instead as in the below code snippet. Each XML attribute is checked to see if its value
+		represents a valid <span class="ph"><span class="ph pname">OpenUI5</span></span>
+		binding which refers to currently available model (= <var class="keyword varname">&lt;variable&gt;</var>) names
+		only. If so, the binding is evaluated and the result is written back into that XML
+		attribute.</p>
+<p class="p">Note the usage of the method <samp class="ph codeph">sap.ui.model.odata.AnnotationHelper.format</samp> as a
+			formatter which properly interprets OData Version 4.0 annotations from the
+			ODataMetaModel. You can use this same formatter for labels and values. For more
+			information, see <a class="xref" href="http://www.sap.com/Protocols/SAPData">SAP Annotations for OData Version 2.0</a>.</p>
+<p class="p">Normally, one would not need any formatter for labels and could instead point to
+				<samp class="ph codeph">'badge&gt;MainInfo/Label/String'</samp>, but this does not take care of
+			escaping and works only for string constants. The
+				<samp class="ph codeph">sap.ui.model.odata.AnnotationHelper.format</samp> is also able to insert
+			references to translatable texts in case the preprocessor has been called with
+				<samp class="ph codeph">bindTexts : true</samp>, which is important for design-time
+			templating.</p>
+<div class="example"><h2 class="exampletitle">Example</h2><div class="title authorexampletitle">Template with Some Binding</div>
+			
+			<div class="note sap-samplecodeblock samplecode"><span class="samplecodetitle">Sample Code</span> 
+				<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">&lt;codeph ui_deliveryplatform="ui_demokit ui_opensource"&gt;#!xml&lt;/codeph&gt;
+&lt;Label text="{path: 'badge&gt;MainInfo/Label', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}"/&gt;
+&lt;Text text="{path: 'field&gt;Value', formatter: 'sap.ui.model.odata.AnnotationHelper.format'}" /&gt;</pre></div>
+
+			</div>
+
+			<p class="p">At the time the binding is resolved, <samp class="ph codeph">field&gt;Value</samp> will refer to
+					<samp class="ph codeph">meta&gt;/dataServices/schema/0/entityType/0/com.sap.vocabularies.UI.v1.Badge/MainInfo/Value</samp>.
+				The resulting XML DOM is shown below. Any references to the meta model are gone.
+				Also the type information, including constraints, has been inserted into the
+				binding.</p>
+
+		</div>
+<div class="example"><h2 class="exampletitle">Example</h2><div class="title authorexampletitle">Result after Replacement of Binding</div>
+			
+			<div class="note sap-samplecodeblock samplecode"><span class="samplecodetitle">Sample Code</span> 
+				<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">&lt;codeph ui_deliveryplatform="ui_demokit ui_opensource"&gt;#!xml&lt;/codeph&gt;
+&lt;Label text="Phone"/&gt;
+&lt;Text text="{path : 'PhoneNumber', type : 'sap.ui.model.odata.type.String', constraints : {'maxLength':'30'}}" /&gt;
+Custom Formatter Functions</pre></div>
+
+			</div>
+
+		</div>
+<div class="section"><div class="section_title">Custom Formatter Functions</div><div type="Custom Formatter Functions"><p class="p">You can also write your own custom formatter
+				functions. For information how you access the model and path related to the current
+				formatter call, see <span class="ph"><a class="xref" href="../../docs/api/symbols/sap.ui.core.util.XMLPreprocessor.IContext.html">sap.ui.core.util.XMLPreprocessor.IContext</a></span>.</p>
+<div class="sectiondiv subsection"><p class="p subsectiontitle">Composite Binding Example</p>
+<p class="p">The following example assumes that the meta model that is used has a structure as
+					shown in the following example and that <samp class="ph codeph">title&gt;</samp> refers to the
+					header info's title property (line 2 in the code snippet):</p>
+<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!js</samp>                    
+1   "com.sap.vocabularies.UI.v1.HeaderInfo": {
+2       "Title": {
+3           "Label": {
+4               "String": "Customer"
+5           },
+6           "Value": {
+7               "Path": "CustomerName"
+8           }
+9       }
+10  }</pre></div>
+</div><p class="p">Now assume that you have a formatter function as shown in the following
+				code snippet that can be used in composite bindings either at root level (line 1) or
+				for individual parts (Line 2). You can also use it for a simple binding. In this
+				case, it behaves in the same way as a single
+				part.</p>
+<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">1   &lt;Text text="{path: 'title&gt;Label', formatter: 'formatParts'}: {path: 'title&gt;Value', formatter: 'formatParts'}"/&gt;
+2   &lt;Text text="{parts: [{path: 'title&gt;Label', formatter: 'formatParts'}: {path: 'title&gt;Value'}], formatter: 'formatParts'}"/&gt;</pre></div>
+<p class="p">The
+				following code snippet shows the example formatter function.</p>
+<div class="note note"><span class="notetitle">Note</span> 
+				<p class="p">The custom formatter function needs to be globally accessible because XML
+					Templating cannot call formatter functions inside the view's controller. This
+					controller does not yet exist at the time of preprocessing. However, it is not
+					sufficient to simply put it into window (see line 8). You must put it into your
+					own namespace.</p>
+
+			</div>
+<p class="p">This example formatter opts to the extended signature (see line 51), which
+				provides a context interface as the first parameter. It distinguishes between root
+				level calls and others (see line 34). Delegates to
+					<samp class="ph codeph">sap.ui.model.odata.AnnotationHelper#format</samp> (see line 27) and
+				wraps label texts in square brackets for demo purposes (see line 29). For root level
+				calls, it loops over all available parts (see line 40) and accesses each part (see
+				line 43). The demo code handles each part individually and joins the result, but in
+				practice some more complicated dependency between parts would be
+				realistic.</p>
+<p class="p">The delegation to
+					<samp class="ph codeph">sap.ui.model.odata.AnnotationHelper#format</samp> provides the raw
+				value we already have at hand, even for root level calls (see comment in line
+				42).</p>
+<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!js</samp>
+1   /*
+2    * Custom formatter function for complex bindings to demonstrate access to ith part of binding.
+3    * Delegates to {@link sap.ui.model.odata.AnnotationHelper#format} and wraps label texts in
+4    * square brackets. Joins parts together, separated by a space.
+5    *
+6    * @param {sap.ui.core.util.XMLPreprocessor.IContext} oInterface
+7    *   the callback interface related to the current formatter call
+8    * @param {...any} [vRawValue]
+9    *   the raw value(s) from the meta model
+10   * @returns {string}
+11   *   the resulting string value to write into the processed XML
+12   */
+13  window.formatParts = function(oInterface, vRawValue) {
+14      var i, aResult;
+15
+16      /*
+17       * Delegates to {@link sap.ui.model.odata.AnnotationHelper#format} and wraps label texts
+18       * in square brackets.
+19       *
+20       * @param {sap.ui.core.util.XMLPreprocessor.IContext|sap.ui.model.Context} oInterface
+21       *   the callback interface related to the current formatter call
+22       * @param {any} [vRawValue]
+23       *   the raw value from the meta model
+24       * @returns {string}
+25       */
+26      function formatLabelValue(oInterface, vRawValue) {
+27        var sResult = sap.ui.model.odata.AnnotationHelper.format(oInterface, vRawValue);
+28        return jQuery.sap.endsWith(oInterface.getPath(), "/Label")
+29             ? "["+ sResult + "]"
+30             : sResult;
+31      }
+32  
+33       try {
+34          if(oInterface.getModel()) {
+35              returnformatLabelValue(oInterface, vRawValue);
+36          } else {
+37              // root formatter for a composite binding
+38              aResult = [];
+39              // "probe for the smallest non-negative integer"
+40              for (i = 0; oInterface.getModel(i); i += 1) {               
+41                  aResult.push(
+42                      // Note: arguments[i + 1] is the raw value of the ith part!
+43                      formatLabelValue(oInterface.getInterface(i), arguments[i + 1])
+44                  );
+45              }
+46              return aResult.join(" ");
+47          }
+48      } catch (e) {
+49          return e.message;
+50      }
+51  }
+52  window.formatParts.requiresIContext = true;</pre></div>
+<p class="p">The
+				output for this example is as follows:</p>
+<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint "><samp class="ph codeph">#!js</samp>
+&lt;Text text="[Customer]: {CustomerName}"/&gt;
+&lt;Text text="[Customer] {CustomerName}"/&gt;</pre></div>
+<div class="note note"><span class="notetitle">Note</span> 
+				<p class="p">The colon (":") is taken over literally from the first composite binding which
+					consists of two bindings separated by a string literal.</p>
+
+			</div>
+</div></div>
+</div>
+<div class="related-links"> 
+<div class="relinfo"><div class="relinfotitle ">Related Information</div>
+</div>
+
+<div class="linklist linklist">
+<div><div><a class="link" href="../../docs/api/symbols/sap.ui.model.odata.AnnotationHelper.html"><samp class="ph codeph">sap.ui.model.odata.AnnotationHelper.format</samp></a></div>
+</div>
+<div><div><a class="link" href="../../docs/api/symbols/sap.ui.core.util.XMLPreprocessor.IContext.html"><samp class="ph codeph">sap.ui.core.util.XML.Preprocessor.IContext</samp></a></div>
+</div>
+<div><a class="link" href="5ee619fc1370463ea674ee04b65ed83b.html">XML Templating</a></div>
+<div><a class="link" href="07e4b920f5734fd78fdaa236f26236d8.html">Custom Formatter Functions</a></div></div>
+</div></div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Replacement of Bindings";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

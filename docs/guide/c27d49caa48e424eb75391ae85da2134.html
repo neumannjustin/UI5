@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="You can use an XML view as a template that is transformed by an XML preprocessor on the source level, that is, the XML DOM, before an OpenUI5 control tree is created from that XML source."/>
+<meta name="description" content="You can use an XML view as a template that is transformed by an XML preprocessor on the source level, that is, the XML DOM, before an OpenUI5 control tree is created from that XML source."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=05254066123843215"/>
+<title>Preprocessing Instructions</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loioc27d49caa48e424eb75391ae85da2134">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Preprocessing Instructions</h1>
+<div class="body conbody"><p class="shortdesc">You can use an XML view as a template that is transformed by an XML preprocessor on the
+		source level, that is, the <samp class="ph codeph">XML DOM</samp>, before an <span class="ph"><span class="ph pname">OpenUI5</span></span> control tree is created
+		from that XML source. </p>
+<p class="p">See the example and introduction in the topic <a class="xref" href="5ee619fc1370463ea674ee04b65ed83b.html">XML Templating</a>.</p>
+<p class="p">The models in the example that are available for the preprocessor are initially as
+			follows: <samp class="ph codeph">meta = oMetaModel, "/dataServices/schema/0/entityType/0"</samp></p>
+<div class="note note"><span class="notetitle">Note</span> 
+			<p class="p">A model name can be seen as a variable with a value that consists of two parts: a
+				model instance and a binding context path.</p>
+
+		</div>
+<p class="p">You can base conditions on the available variables. XML attributes that represent an available
+			binding are replaced automatically.</p>
+</div>
+<div class="related-links"> <br/>
+<div class="childtopics"><strong>In this section:</strong></div><ul class="ullinks">
+<div><strong><a class="link" href="58cf64cbb951496a99ac94e01a0905b2.html">with</a></strong><br/>
+<div class="linkdesc">The <samp class="ph codeph">&lt;template:with&gt;</samp> instruction can be used to change a variable's 		value or to add a variable with a new name. </div></div>
+<div><strong><a class="link" href="512e545ba66f4214ba0de1eb56f319e1.html">repeat</a></strong><br/>
+<div class="linkdesc">The <samp class="ph codeph">&lt;template:repeat</samp> instruction iterates the 			<samp class="ph codeph">sap.ui.model.ListBinding</samp> given by the <samp class="ph codeph">list</samp> attribute. </div></div>
+<div><strong><a class="link" href="fc185952184c48618ef46306a1517f8c.html">if</a></strong><br/>
+<div class="linkdesc">The <samp class="ph codeph">&lt;template:if&gt;</samp> instruction evaluates a condition expressed via 		existing <span class="ph"><span class="ph pname">OpenUI5</span></span> data binding 		features, such as extended syntax; in the preprocessing it is removed or replaced by its 		child elements based on the value of this condition.  </div></div>
+<div><strong><a class="link" href="ac5751f89cb142b7a6d53eaf8a0f6339.html">alias</a></strong><br/>
+<div class="linkdesc">The <samp class="ph codeph">&lt;template:alias&gt;</samp> instruction can be used to define a shortcut 		alias name for a JavaScript value, for example a static helper class, a formatter function, 		or a helper function.</div></div>
+<div><strong><a class="link" href="263f6e5a915f430894ee290040e7e220.html">require</a></strong><br/>
+<div class="linkdesc">The <samp class="ph codeph">template:require</samp> attribute can be used at the root element of an 		XML template view or fragment to specify a space separated list of module names for 			<samp class="ph codeph">jQuery.sap.require</samp>. You do not need to call 			<samp class="ph codeph">jQuery.sap.require("sap.ui.model.odata.AnnotationHelper")</samp> before use as 		it is automatically available.</div></div>
+<div><strong><a class="link" href="604b1eb50e47483ebaf97a27fb065e95.html">Replacement of Bindings</a></strong><br/>
+<div class="linkdesc">For attributes, you do not need templating instructions but use <span class="ph"><span class="ph pname">OpenUI5</span></span> binding expressions 		instead as in the below code snippet. Each XML attribute is checked to see if its value 		represents a valid <span class="ph"><span class="ph pname">OpenUI5</span></span> 		binding which refers to currently available model (= <var class="keyword varname">&lt;variable&gt;</var>) names 		only. If so, the binding is evaluated and the result is written back into that XML 		attribute.</div></div>
+<div><strong><a class="link" href="65da02badf704e03a4fd6bd4c5aba8f4.html">XML Fragments</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> fragments of type 		XML are used in the context of XML templating to provide reuse parts for 		templates.</div></div>
+<div><strong><a class="link" href="b15e6afc5ae74227a661dc6ff104bf80.html">Extension Points</a></strong><br/>
+<div class="linkdesc">Extension points can be used in XML templating to extend the standard with custom 		content.</div></div>
+</ul>
+
+</div>
+</div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Preprocessing Instructions";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

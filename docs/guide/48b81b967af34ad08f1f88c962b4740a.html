@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="Applying preprocessing to views enables you to use features like XML templating. This feature is currently only enabled for XML views. On an abstract level, preprocessing means that a view can be modified during runtime before it is rendered. This makes it possible to use the templating syntax, as it is interpreted by the preprocessor. It also makes it possible to apply user customization."/>
+<meta name="description" content="Applying preprocessing to views enables you to use features like XML templating. This feature is currently only enabled for XML views. On an abstract level, preprocessing means that a view can be modified during runtime before it is rendered. This makes it possible to use the templating syntax, as it is interpreted by the preprocessor. It also makes it possible to apply user customization."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=7592499308639401"/>
+<title>Preprocessing XML Views</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loio48b81b967af34ad08f1f88c962b4740a">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Preprocessing XML Views</h1>
+<div class="body"><p class="shortdesc">Applying preprocessing to views enables you to use features like XML templating. This
+		feature is currently only enabled for XML views. On an abstract level, preprocessing means
+		that a view can be modified during runtime before it is rendered. This makes it possible to
+		use the templating syntax, as it is interpreted by the preprocessor. It also makes it
+		possible to apply user customization.</p>
+<p class="p">The following figure shows the different stages of view initialization. There are two
+			main hooks, XML and controls, which differ mainly in the source that is passed to the
+			preprocessor.</p>
+<img class="image" id="loio48b81b967af34ad08f1f88c962b4740a__image_d5l_q3c_zs" src="loiof33daeb55f54422ebe67ec9b13d74447_LowRes.png"/><ul class="ul" id="loio48b81b967af34ad08f1f88c962b4740a__ul_nxg_4jc_zs"><li class="li">
+				<p class="p">XML</p>
+
+				<p class="p">The raw view source in the XML format is passed to the preprocessor. This enables
+					example templating on XML level.</p>
+
+			</li>
+<li class="li">
+				<p class="p">Controls</p>
+
+				<p class="p">The view source is already processed to the JavaScript object and the control
+					tree is available. This enables you to make changes to the view after design
+					time, like special customizations, stored at some persistence layer or similar,
+					the user has made previously. Or customizations depending on the user role which
+					are not applicable during design time.</p>
+
+			</li>
+</ul>
+<div class="section"><div class="section_title">Using the Preprocessor</div><div type="Using the Preprocessor">
+			
+			<p class="p">First, you need a preprocessor implementation. SAPUI5 provides a default preprocessor for XML
+				templating which can be enabled by default. You can also build your own preprocessor
+				based on the <samp class="ph codeph">Preprocessor</samp> interface, see <span class="ph"><a class="xref" href="../../docs/api/symbols/sap.ui.core.mvc.View.Preprocessor.html">sap.ui.core.mvc.View.Preprocessor</a></span>.</p>
+
+			<p class="p">For an example, see <a class="xref" href="../../docs/api/symbols/sap.ui.core.sample.View.preprocessor/code/Sample.view.js">sap.ui.core.sample.View.Preprocessor/code/Sample.view.js</a></p>
+
+			<p class="p">To use the preprocessor, you can choose one of the following options:</p>
+
+			<ul class="ul" id="loio48b81b967af34ad08f1f88c962b4740a__ul_p5h_4kc_zs"><li class="li">
+					<p class="p">Global availability</p>
+
+					<p class="p">Makes the preprocessor available to all XML views and processes it every time a View is
+						initialized. This maybe the right case for essential operations you want to
+						apply to every view in your application. Therefore you can make use of the
+							<span class="ph"><a class="xref" href="../../docs/api/symbols/sap.ui.core.mvc.XMLView.html%23.registerPreprocessor">sap.ui.core.mvc.XMLView.registerPreprocessor</a></span>
+						<span class="ph"/> method: </p>
+
+					<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">XMLView.registerPreprocessor("xml", "sap.ui.sample.samplepreprocessor",
+/* bSyncSupport = */ false, {sampleInfo: "this is a global preprocessor",
+moreInfo: "…"});</pre></div>
+
+				</li>
+<li class="li">
+					<p class="p">Local availability</p>
+
+					<p class="p">Make a preprocessor available to one instance. This can be achieved by passing the
+						preprocessor to the view factory function, which then processes it for this
+						special instance. This would be the choice for smaller tasks the
+						preprocessor should perform.</p>
+
+					<div class="div_pre_codeblock"><pre class="pre codeblock prettyprint ">sap.ui.xmlview({
+       viewName: "sap.ui.core.sample.View.preprocessor.Sample",
+       async: true,
+       preprocessors: {
+             xml: {
+                   preprocessor: "sap.ui.sample.samplepreprocessor",
+                   sampleInfo: "this is a local preprocessor",
+                   moreInfo: "…"
+             }
+       }
+}).loaded().then(function(oView) {
+       oView.doSomething();
+});</pre></div>
+
+				</li>
+<li class="li">
+					<p class="p">On demand availability</p>
+
+					<p class="p">This enables the developer to activate a preprocessor for a view instance, without the need
+						to provide an implementation, by just specifying a preprocessor, which has
+						been registered globally earlier. This is currently used by the XML
+						templating.</p>
+
+				</li>
+</ul>
+
+			<div class="note note"><span class="notetitle">Note</span> 
+				<p class="p">It is currently only possible to have one preprocessor per hook, that is, ‘xml’
+					or ‘controls’.</p>
+
+				<p class="p">Preprocessors are per default only available for async views. Although it is
+					possible to enable the preprocessor for sync views, we strongly recommend to
+					only use them with async views. The information that is provided when using a
+					preprocessor locally will be passed to the preprocessor according to the
+						<samp class="ph codeph">mSettings</samp> of the register method.</p>
+
+			</div>
+
+		</div></div>
+</div>
+</div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Preprocessing XML Views";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>sap.m.UploadCollection for Pending Upload File List</title>
+
+<script src="../../../resources/sap-ui-core.js" type="text/javascript"
+	id="sap-ui-bootstrap" data-sap-ui-libs="sap.m"
+	data-sap-ui-theme="sap_bluecrystal">
+</script>
+
+<script type="text/javascript">
+
+	jQuery.sap.initMobile();
+	jQuery.sap.require("sap.m.MessageToast");
+
+/* =========================================================== */
+/* UploadCollection                                            */
+/* =========================================================== */
+
+	var aFileTypes = ["jPg", "tXT", "ppt", "doc", "xls", "pdf", "PNG"];
+	var iRequestCounter = 0, sFileName;
+	var oButton = new sap.m.Button({text: "start upload", press : fnUpload});
+
+	// Creates an instance of UploadCollection
+	var oUploadCollection = new sap.m.UploadCollection({
+		id : "UploadCollection",
+		maximumFilenameLength : 55,
+		maximumFileSize : 50,
+		multiple : true,
+		fileType : aFileTypes,
+		sameFilenameAllowed : true,
+		instantUpload : false,
+		// events
+		change : fnChange,
+		fileDeleted : fnFileDeleted,
+		filenameLengthExceed : fnfilenameLengthExceed,
+		fileSizeExceed : fnFileSizeExceed,
+		typeMissmatch : fnTypeMissmatch,
+		uploadComplete : fnUploadComplete,
+		beforeUploadStarts : fnBeforeUploadStarts
+	});
+
+	/* =========================================================== */
+	/* Handle UploadCollection Events                              */
+	/* =========================================================== */
+	function fnChange(oEvent) {
+		sap.m.MessageToast.show("Event change triggered");
+	}
+
+	function fnUpload(oEvent) {
+		oUploadCollection.upload();
+		sap.m.MessageToast.show("Upload has been started");
+	}
+
+	function fnBeforeUploadStarts(oEvent) {
+		sFileName = oEvent.getParameter("fileName");
+		iRequestCounter ++;
+		var oHeaderParameter = new sap.m.UploadCollectionParameter({
+			name: "FileNameForTesting",
+			value: sFileName
+		});
+		oEvent.getParameters().addHeaderParameter(oHeaderParameter);
+		// Delays the beforeUploadStarts message in order to see the upload message
+		setTimeout(function() {
+			sap.m.MessageToast.show("Event beforeUploadStarts triggered, see log for more ...");
+		}, 2000);
+		jQuery.sap.log.info("Event beforeUploadStarts triggered for file " + sFileName);
+	}
+
+	function fnFileDeleted(oEvent) {
+		sap.m.MessageToast.show("Event fileDeleted triggered");
+	}
+
+	function fnfilenameLengthExceed(oEvent) {
+		sap.m.MessageToast.show("Event filenameLengthExceed triggered");
+	}
+
+	function fnFileSizeExceed(oEvent) {
+		sap.m.MessageToast.show("Event fileSizeExceed triggered");
+	}
+
+	function fnTypeMissmatch(oEvent) {
+		sap.m.MessageToast.show("Event typeMissmatch triggered");
+	}
+
+	function fnUploadComplete(oEvent) {
+		sFileName = oEvent.getParameter("files")[0].fileName;
+		// Delays the uploadComplete message in order to see the beforeUploadStarts message
+		setTimeout(function() {
+			sap.m.MessageToast.show("Event uploadComplete triggered, see log for more ...")
+		}, 4000);
+		jQuery.sap.log.info("Event uploadComplete triggered for file " + sFileName);
+		if (iRequestCounter <= 1) {
+			setTimeout(function() {
+				// Destroys old UploadCollection instance and creates a new one
+				oPage.removeContent(oUploadCollection);
+				oUploadCollection.destroy();
+				// Creates an instance of UploadCollection
+				oUploadCollection = new sap.m.UploadCollection({
+					maximumFilenameLength : 55,
+					maximumFileSize : 50,
+					multiple : true,
+					fileType : aFileTypes,
+					sameFilenameAllowed : true,
+					instantUpload : false,
+					// events
+					change : fnChange,
+					fileDeleted : fnFileDeleted,
+					filenameLengthExceed : fnfilenameLengthExceed,
+					fileSizeExceed : fnFileSizeExceed,
+					typeMissmatch : fnTypeMissmatch,
+					uploadComplete : fnUploadComplete,
+					beforeUploadStarts : fnBeforeUploadStarts
+				});
+				oPage.insertContent(oUploadCollection);
+			}, 6000);
+			iRequestCounter = 0;
+		} else {
+			iRequestCounter --;
+		}
+	}
+
+	/* ============================================================	*/
+	/* Create Page                   								*/
+	/* ============================================================ */
+	// As jQuery.sap.initMobile() is used, it is not needed to create an app and the page can be put directly into the HTML document
+	var oPage = new sap.m.Page(
+			"page",
+			{
+				title : "Test Page for sap.m.UploadCollection with Upload Pending files",
+				content : oUploadCollection,
+				footer : new sap.m.Bar({
+					contentMiddle : oButton
+				})
+			}).placeAt("body");
+</script>
+
+</head>
+<body id="body" class="sapUiBody">
+</body>
+</html>

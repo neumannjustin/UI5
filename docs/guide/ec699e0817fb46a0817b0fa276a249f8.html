@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+
+
+
+
+<meta name="abstract" content="This chapter and its sections introduce the OpenUI5 architecture and the main concepts, such as the Model View Controller, data binding, and components."/>
+<meta name="description" content="This chapter and its sections introduce the OpenUI5 architecture and the main concepts, such as the Model View Controller, data binding, and components."/>
+
+<link rel="stylesheet" type="text/css" href="css/documentation.css?x=9626716948577231"/>
+<title>Essentials</title>
+<!--[if lte IE 7]><style>
+      .codeblock{
+          overflow:visible;
+      }</style><![endif]-->
+
+  <script src="../../resources/sap/ui/thirdparty/jquery.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/highlight-query-terms.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/themes/base/highlight-query-terms.css" />
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/run_prettify.js"></script>
+    <script src="../../resources/sap/ui/demokit/js/google-code-prettify/lang-css.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../resources/sap/ui/demokit/js/google-code-prettify/prettify.css" />
+  </head>
+<body class="" id="loioec699e0817fb46a0817b0fa276a249f8">
+<div id="wrapper"><div id="container">
+<h1 class="title topictitle1">Essentials</h1>
+<div class="body conbody"><p class="shortdesc">This chapter and its sections introduce the <span class="ph"><span class="ph pname">OpenUI5</span></span> architecture and the
+		main concepts, such as the Model View Controller, data binding, and components.</p>
+<p class="p"><span class="ph"><span class="ph pname">OpenUI5</span></span> is a client UI technology based on JavaScript, CSS and HTML5. <span class="ph"><span class="ph pname">OpenUI5</span></span> applications run in
+			a browser. Depending on the device the application is to run on (mobile, tablet or
+			desktop PC), you use different UI libraries. </p>
+<p class="p">Servers come into play for deploying your applications, storing the <span class="ph"><span class="ph pname">OpenUI5</span></span> libraries and
+			connecting to a database. Depending on the environment in which <span class="ph"><span class="ph pname">OpenUI5</span></span> is used, the
+			libraries or your applications are stored on an <span class="ph pname">SAP NetWeaver Application Server</span> or an <span class="ph pname">SAP HANA Cloud Platform</span>, for instance.
+			the preferred way to access business data for your application is using the OData model
+			through a <span class="ph pname">SAP Gateway</span>.</p>
+<p class="p">When users access an <span class="ph"><span class="ph pname">OpenUI5</span></span>
+			application from their device, a request is sent to the respective server to load the
+			application into the browser. The view accesses the relevant libraries. Usually the
+			model is also instantiated and business data is fetched from the database.</p>
+<p class="p"><img class="image" id="loioec699e0817fb46a0817b0fa276a249f8__image_apr_kqh_sk" src="loio99b4be76a3f94db18172e67e730fb7fb_LowRes.png" alt="OpenUI5 Architecture Overview" title="OpenUI5 Architecture Overview"/></p>
+<div class="section"><div class="section_title">Model View Controller</div><div type="Model View Controller">
+			
+			<p class="p"><span class="ph"><span class="ph pname">OpenUI5</span></span> uses the model view controller (MVC) concept to achieve the following objectives: </p>
+
+			<ul class="ul" id="loioec699e0817fb46a0817b0fa276a249f8__ul_m2h_m1y_tk"><li class="li">
+					<p class="p">Support development in distributed teams with different source locations </p>
+
+				</li>
+<li class="li">
+					<p class="p">Propose file structure, naming, and usage patterns </p>
+
+				</li>
+<li class="li">
+					<p class="p">Add capability of UI declaration (in comparison to a programmatic
+						construction) </p>
+
+				</li>
+</ul>
+
+		</div></div>
+</div>
+<div class="related-links"> <br/>
+<div class="childtopics"><strong>In this section:</strong></div><ul class="ullinks">
+<div><strong><a class="link" href="a04b0d10fb494d1cb722b9e341b584ba.html">Bootstrapping: Loading and Initializing</a></strong><br/>
+<div class="linkdesc">Loading and initializing <span class="ph"><span class="ph pname">OpenUI5</span></span> in your HTML page is required to use <span class="ph"><span class="ph pname">OpenUI5</span></span> for your 		application.</div></div>
+<div><strong><a class="link" href="dc9e11c3889441429a60ee871da6f3cb.html">Structuring: Components and Descriptor</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> provides faceless components for services that deliver data from the back end 		system, and UI components that extend components and add rendering functionality. The 		descriptor provides a central, machine-readable and easy-to-access location for storing 		metadata associated with an application, an application component, or a library.</div></div>
+<div><strong><a class="link" href="91f233476f4d1014b6dd926db0e91070.html">Model View Controller (MVC)</a></strong><br/>
+<div class="linkdesc">The Model View Controller (MVC) concept is used in <span class="ph"><span class="ph pname">OpenUI5</span></span> to separate the representation 		of information from the user interaction. This separation facilitates development and the 		changing of parts independently.</div></div>
+<div><strong><a class="link" href="36a5b130076e4b4aac2c27eebf324909.html">Reusing UI Parts: Fragments</a></strong><br/>
+<div class="linkdesc">Fragments are light-weight UI parts (UI sub-trees) which can be reused, defined similar 		to views, but do not have any controller or other behavior code involved.</div></div>
+<div><strong><a class="link" href="0458c5ed9d334f54b0b0d799d7593662.html">HTML and XML Templating</a></strong><br/>
+<div class="linkdesc">SAPUI5 supports HTML templating and XML templating.</div></div>
+<div><strong><a class="link" href="91f0a22d6f4d1014b6dd926db0e91070.html">Working with Controls</a></strong><br/>
+<div class="linkdesc">Controls are used to define the appearance and behavior of screen areas.</div></div>
+<div><strong><a class="link" href="91f130196f4d1014b6dd926db0e91070.html">Declarative Support</a></strong><br/>
+<div class="linkdesc">Declarative programming allows you to define the UI within the HTML document as 		elements.</div></div>
+<div><strong><a class="link" href="62b1481d3e084cb49dd30956d183c6a0.html">Managing UI and Server Messages</a></strong><br/>
+<div class="linkdesc"> <span class="ph"><span class="ph pname">OpenUI5</span></span> provides a central management of UI and server messages.</div></div>
+<div><strong><a class="link" href="3d18f20bd2294228acb6910d8e8a5fb5.html">Routing and Navigation</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> offers a hash-based navigation, which allows you to build one-page apps where the         navigation is done by changing the hash, so the browser does not have to reload the page.         Instead there is a callback to which the app and especially the affected view can react. A         string, that is, the hash is used, parsed and matched against patterns which will then         inform the handlers.</div></div>
+<div><strong><a class="link" href="90e370925add47fdba3cbd01ca7b9ab3.html">Data Binding and Backend Services (OData)</a></strong><br/>
+<div class="linkdesc">You use data binding to bind UI controls to the model, which holds the application data, 		so that the controls are updated automatically whenever application data is changed. The 		data binding is also used when changes in the control cause updates in the underlying 		application data, such as data being entered by a user. The <samp class="ph codeph">ODataMetaModel</samp> 		offers a unified access to both OData Version 2.0 metadata and Version 4.0 		annotations.</div></div>
+<div><strong><a class="link" href="2f492c438a16427e8f84d8436ea9cf77.html">Optimizing Applications</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> supports several 		means of optimizing the loading time for applications.</div></div>
+<div><strong><a class="link" href="50eadaac8d2e49ee8996dc2b560cb76b.html">Adapting to Operating Systems And Devices</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> supports several functions to adapt to operating systems and devices.</div></div>
+<div><strong><a class="link" href="322f55d0cf1e4b459cc1911c899b7a5f.html">Accessibility Features</a></strong><br/>
+<div class="linkdesc">Accessibility features are essential for users with disabilities. In an ongoing 		approach, <span class="ph"><span class="ph pname">OpenUI5</span></span> controls aim 		to comply with various product standards such as screen reader support, high-contrast 		theming and keyboard handling.</div></div>
+<div><strong><a class="link" href="91f217c46f4d1014b6dd926db0e91070.html">Localization</a></strong><br/>
+<div class="linkdesc">The framework concepts for text localization in <span class="ph"><span class="ph pname">OpenUI5</span></span> are aligned with the general 		concepts of the Java platform. </div></div>
+<div><strong><a class="link" href="7cdee404cac441888539ed7bfe076e57.html">Unit and Integration Testing</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> provides several options to perform unit and integration tests.</div></div>
+<div><strong><a class="link" href="615d9e4aaa34447fbd4aa5f19dfde9b8.html">Troubleshooting</a></strong><br/>
+<div class="linkdesc">Different browsers may behave differently - not only with regard to rendering and event 		handling, but also with regard to the debugging tools they provide. The Troubleshooting 		section gives guidance on how to deal with issues that may come up when developing <span class="ph"><span class="ph pname">OpenUI5</span></span> 		applications. This information is mainly intended for issues that occur at beginner 		level.</div></div>
+<div><strong><a class="link" href="497c27a8ee26426faacd2b8a1751794a.html">Theming</a></strong><br/>
+<div class="linkdesc"><span class="ph"><span class="ph pname">OpenUI5</span></span> is an HTML UI library, therefore styling is done using Cascading StyleSheets 		(CSS). This allows creating an impressive visual experience using a widely known standard 		technology which is well-accepted on the market.</div></div>
+</ul>
+
+</div>
+</div></div>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+ var page_title="Essentials";
+
+        if (page_title !='' &&
+        parent.document.title != null) {
+ parent.document.title =
+          page_title;
+ } 
+ var
+        anchor = document.getElementById(location.hash.substring(+1)); if (typeof (anchor)
+        !='undefined' && anchor !=null){
+        var top = anchor.getBoundingClientRect().top; } 
+//-->
+</SCRIPT>
+</body>
+</html>
